@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import { Server, Database, Globe, Cpu, Lock, Check, ArrowRight } from 'lucide-react';
-import type { BankingSystem } from '../hooks/useGameState';
+import type { BankingSystem } from '../models';
 
 const typeIcons: Record<BankingSystem['type'], JSX.Element> = {
     payment: <Server size={18} />,

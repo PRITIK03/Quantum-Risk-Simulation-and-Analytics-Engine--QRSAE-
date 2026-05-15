@@ -1,54 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { TimelineEvent } from '../components/AnalyticsPanel';
-import type { Mission } from '../components/MissionsPanel';
-import type { Achievement } from '../components/ScoreBoard';
-
-export interface BankingSystem {
-    id: string;
-    name: string;
-    type: 'payment' | 'database' | 'api' | 'core';
-    encryptionType: 'RSA-2048' | 'AES-256' | 'SHA-256' | 'PQC-Ready';
-    riskLevel: 'critical' | 'high' | 'medium' | 'low';
-    migrationCost: number;
-    migrationTime: number;
-    isMigrated: boolean;
-    isScanned: boolean;
-}
-
-export interface Vendor {
-    id: string;
-    name: string;
-    logo: string;
-    costMultiplier: number;
-    speedMultiplier: number;
-    description: string;
-}
-
-export interface Notification {
-    id: string;
-    type: 'success' | 'warning' | 'error' | 'info';
-    message: string;
-    timestamp: Date;
-}
-
-export interface GameState {
-    day: number;
-    budget: number;
-    maxBudget: number;
-    uptime: number;
-    migrationProgress: number;
-    systems: BankingSystem[];
-    selectedVendor: Vendor | null;
-    notifications: Notification[];
-    qDayCountdown: number;
-    totalSystemsMigrated: number;
-    isScanning: boolean;
-    scanningProgress: number;
-    score: number;
-    events: TimelineEvent[];
-    missions: Mission[];
-    achievements: Achievement[];
-}
+import type { BankingSystem, Vendor, Notification, GameState, Mission, Achievement } from '../models';
 
 const initialSystems: BankingSystem[] = [
     { id: '1', name: 'Core Payment Gateway', type: 'payment', encryptionType: 'RSA-2048', riskLevel: 'critical', migrationCost: 15000000, migrationTime: 3, isMigrated: false, isScanned: false },

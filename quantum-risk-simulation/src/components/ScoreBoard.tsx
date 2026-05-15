@@ -1,16 +1,10 @@
 import { Trophy, Star, Shield, Zap, Clock, Award } from 'lucide-react';
+import type { Achievement } from '../models';
 
 interface ScoreBoardProps {
     score: number;
     rank: string;
     achievements: Achievement[];
-}
-
-interface Achievement {
-    id: string;
-    title: string;
-    icon: 'shield' | 'star' | 'zap' | 'clock' | 'award';
-    isUnlocked: boolean;
 }
 
 export function ScoreBoard({ score, rank, achievements }: ScoreBoardProps) {
@@ -102,4 +96,3 @@ export function ScoreBoard({ score, rank, achievements }: ScoreBoardProps) {
     );
 }
 
-export type { Achievement };

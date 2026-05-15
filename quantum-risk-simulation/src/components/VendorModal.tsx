@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
-import { vendors, type Vendor } from '../hooks/useGameState';
+import { vendors } from '../hooks/useGameState';
+import type { Vendor } from '../models';
 
 interface VendorModalProps {
     isOpen: boolean;

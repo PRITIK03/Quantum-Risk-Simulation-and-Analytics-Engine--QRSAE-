@@ -1,15 +1,5 @@
 import { Target, CheckCircle, Lock, Zap, Clock, Award } from 'lucide-react';
-
-export interface Mission {
-    id: string;
-    title: string;
-    description: string;
-    reward: string;
-    requiredDay: number;
-    isCompleted: boolean;
-    type: 'scan' | 'vendor' | 'migrate' | 'budget';
-    target?: number;
-}
+import type { Mission } from '../models';
 
 interface MissionsPanelProps {
     missions: Mission[];
