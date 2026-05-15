@@ -3,14 +3,21 @@ import { logger } from '../utils/logger';
 import { handleApiError, sanitizePrompt } from '../utils/errorHandler';
 import type { AIResponse } from '../models';
 
+// NOTE: For production security, do NOT place secret API keys in client-side
+// environment variables (VITE_*). Instead, provide a backend/proxy endpoint
+// that holds the secret and forwards requests to the AI provider. The
+// client should only be configured with the proxy URL.
 const API_KEY = import.meta.env.VITE_PICO_API_KEY ?? '';
 const LLM_API_URL = import.meta.env.VITE_LLM_API_URL ?? '';
 const IMAGE_API_URL = import.meta.env.VITE_IMAGE_API_URL ?? '';
 
 function isConfigured() {
-  if (!API_KEY || !LLM_API_URL) {
-    logger.warn('AI backend not configured. Set VITE_PICO_API_KEY and VITE_LLM_API_URL.');
+  if (!LLM_API_URL) {
+    logger.warn('AI backend not configured. Set VITE_LLM_API_URL to a backend/proxy endpoint.');
     return false;
+  }
+  if (API_KEY) {
+    logger.warn('VITE_PICO_API_KEY is present in the client environment — this is insecure. Remove it and use a backend proxy instead.');
   }
   return true;
 }
@@ -20,7 +27,9 @@ async function callEndpoint(endpoint: string, prompt: string): Promise<AIRespons
 
   const safePrompt = sanitizePrompt(prompt);
 
-  const url = endpoint.includes('?') ? `${endpoint}&pk=${encodeURIComponent(API_KEY)}` : `${endpoint}?pk=${encodeURIComponent(API_KEY)}`;
+  // Do NOT append the API key from the client. The endpoint should be a
+  // backend/proxy that already handles authentication and secrets.
+  const url = endpoint;
 
   try {
     const data = await postJSON(url, { prompt: safePrompt }, { timeout: 15000 });
