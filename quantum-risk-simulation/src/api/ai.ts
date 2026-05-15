@@ -22,6 +22,14 @@ function isConfigured() {
   return true;
 }
 
+interface AIResponseData {
+  text?: string;
+  result?: string;
+  output?: string;
+  imageUrl?: string;
+  image?: string;
+}
+
 async function callEndpoint(endpoint: string, prompt: string): Promise<AIResponse> {
   if (!isConfigured()) return { status: 'error', text: 'AI service not configured.' };
 
@@ -32,7 +40,7 @@ async function callEndpoint(endpoint: string, prompt: string): Promise<AIRespons
   const url = endpoint;
 
   try {
-    const data = await postJSON(url, { prompt: safePrompt }, { timeout: 15000 });
+    const data = await postJSON(url, { prompt: safePrompt }, { timeout: 15000 }) as AIResponseData | null;
 
     if (!data) return { status: 'error', text: 'Empty response from AI service.' };
 
@@ -70,7 +78,21 @@ export async function getMigrationAdvice(systemName: string, riskLevel: string, 
   return callEndpoint(LLM_API_URL, prompt);
 }
 
-export async function generateSecurityReport(systemData: any): Promise<AIResponse> {
+interface SecurityReportData {
+  totalSystems: number;
+  criticalSystems: number;
+  highRiskSystems: number;
+  mediumRiskSystems: number;
+  lowRiskSystems: number;
+  migrationProgress: number;
+  migratedSystems: number;
+  budget: number;
+  budgetUsed: number;
+  day: number;
+  uptime: number;
+}
+
+export async function generateSecurityReport(systemData: SecurityReportData): Promise<AIResponse> {
   const prompt = `Generate a professional Executive Security Report for banking infrastructure.\n\nCurrent Status:\n- Total Systems: ${systemData.totalSystems}\n- Critical Risk: ${systemData.criticalSystems} systems\n- High Risk: ${systemData.highRiskSystems} systems\n- Medium Risk: ${systemData.mediumRiskSystems} systems\n- Low Risk/Secured: ${systemData.lowRiskSystems} systems\n- Migration Progress: ${systemData.migrationProgress}%\n- Systems Migrated: ${systemData.migratedSystems}/${systemData.totalSystems}\n- Budget: $${(systemData.budget / 1000000).toFixed(1)}M remaining of $${(systemData.budgetUsed / 1000000).toFixed(1)}M spent\n- Sprint Day: ${systemData.day}/15\n- System Uptime: ${systemData.uptime.toFixed(2)}%\n\nGenerate a report with these sections:\n1. EXECUTIVE SUMMARY (3-4 sentences)\n2. RISK ASSESSMENT (current threat level and vulnerabilities)\n3. MIGRATION STATUS (progress and timeline)\n4. FINANCIAL OVERVIEW (budget utilization)\n5. RECOMMENDATIONS (top 3 priority actions)\n\nUse markdown formatting. Be professional, concise, and actionable.`;
   return callEndpoint(LLM_API_URL, prompt);
 }

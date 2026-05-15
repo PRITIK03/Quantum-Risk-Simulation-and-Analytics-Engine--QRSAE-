@@ -1,20 +1,17 @@
 const PREFIX = '[quantum-risk]';
 
+type LogArgs = unknown[];
+
 export const logger = {
-  info: (...args: any[]) => {
-    // enable more sophisticated sinks (Sentry, remote logger) in production
-    // keep console calls minimal and consistent
-    // eslint-disable-next-line no-console
+  info: (...args: LogArgs) => {
     console.info(PREFIX, ...args);
   },
-  warn: (...args: any[]) => {
-    // eslint-disable-next-line no-console
+  warn: (...args: LogArgs) => {
     console.warn(PREFIX, ...args);
   },
-  error: (...args: any[]) => {
-    // eslint-disable-next-line no-console
+  error: (...args: LogArgs) => {
     console.error(PREFIX, ...args);
   },
-};
+};;
 
 export default logger;

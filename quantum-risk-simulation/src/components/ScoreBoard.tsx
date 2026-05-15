@@ -10,7 +10,7 @@ interface ScoreBoardProps {
 export function ScoreBoard({ score, rank, achievements }: ScoreBoardProps) {
     const unlockedCount = achievements.filter(a => a.isUnlocked).length;
 
-    const iconMap = {
+    const iconMap: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
         shield: Shield,
         star: Star,
         zap: Zap,

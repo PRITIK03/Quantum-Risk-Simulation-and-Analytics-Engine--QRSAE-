@@ -5,7 +5,7 @@ export interface FetchOptions {
   headers?: Record<string, string>;
 }
 
-export async function postJSON(url: string, body: any, options: FetchOptions = {}): Promise<any> {
+export async function postJSON(url: string, body: unknown, options: FetchOptions = {}): Promise<unknown> {
   const controller = new AbortController();
   const timeout = options.timeout ?? 15000;
   const timer = setTimeout(() => controller.abort(), timeout);

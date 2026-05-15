@@ -388,7 +388,6 @@ function App() {
 
               {activeTab === 'security' && (
                 <SecurityDashboard
-                  threatLevel={threatLevel}
                   migrationProgress={state.migrationProgress}
                   criticalSystems={criticalSystems}
                   totalSystems={state.systems.length}
@@ -487,8 +486,7 @@ function App() {
 }
 
 // Security Dashboard Component
-function SecurityDashboard({ threatLevel: _threatLevel, migrationProgress, criticalSystems, totalSystems, uptime }: {
-  threatLevel: 'low' | 'medium' | 'high' | 'critical';
+function SecurityDashboard({ migrationProgress, criticalSystems, totalSystems, uptime }: {
   migrationProgress: number;
   criticalSystems: number;
   totalSystems: number;

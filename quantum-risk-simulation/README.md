@@ -1,19 +1,31 @@
-# React + TypeScript + Vite
+# Quantum Risk Analyst
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A cybersecurity simulation game for banking infrastructure post-quantum cryptography migration.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Copy `.env.example` to `.env.local` and configure:
+   - `VITE_LLM_API_URL` - Your backend proxy URL for AI features
+   - `VITE_IMAGE_API_URL` - Your image generation proxy URL
 
-## React Compiler
+2. Install dependencies:
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. Run development server:
+```bash
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Security Note
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Do NOT place secret API keys in client-side environment variables. Use a backend proxy endpoint.
+
+## Build
+```bash
+npm run build
+```
 
 ```js
 export default defineConfig([

@@ -12,7 +12,7 @@ export interface AIResponse {
   text?: string;
   imageUrl?: string;
   message?: string;
-  data?: any;
+  data?: unknown;
 }
 
 export interface BankingSystem {
@@ -61,6 +61,15 @@ export interface Achievement {
   isUnlocked: boolean;
 }
 
+export interface TimelineEvent {
+  id: string;
+  day: number;
+  type: 'start' | 'scan' | 'migrate' | 'vendor' | 'alert';
+  title: string;
+  value?: string;
+  timestamp?: Date;
+}
+
 export interface GameState {
   day: number;
   budget: number;
@@ -75,7 +84,7 @@ export interface GameState {
   isScanning: boolean;
   scanningProgress: number;
   score: number;
-  events: any[];
+  events: TimelineEvent[];
   missions: Mission[];
   achievements: Achievement[];
 }

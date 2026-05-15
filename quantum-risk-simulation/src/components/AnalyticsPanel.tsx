@@ -1,13 +1,6 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Minus, Activity, Shield, DollarSign, Server, AlertTriangle } from 'lucide-react';
-
-interface TimelineEvent {
-    id: string;
-    day: number;
-    type: 'scan' | 'vendor' | 'migrate' | 'budget' | 'start';
-    title: string;
-    value?: string;
-}
+import type { TimelineEvent } from '../models';
 
 interface AnalyticsPanelProps {
     budget: number;

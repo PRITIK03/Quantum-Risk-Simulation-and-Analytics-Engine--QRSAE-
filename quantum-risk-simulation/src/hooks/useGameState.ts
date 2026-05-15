@@ -1,6 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import type { TimelineEvent } from '../components/AnalyticsPanel';
-import type { BankingSystem, Vendor, Notification, GameState, Mission, Achievement } from '../models';
+import type { BankingSystem, Vendor, Notification, GameState, Mission, Achievement, TimelineEvent } from '../models';
 
 const initialSystems: BankingSystem[] = [
     { id: '1', name: 'Core Payment Gateway', type: 'payment', encryptionType: 'RSA-2048', riskLevel: 'critical', migrationCost: 15000000, migrationTime: 3, isMigrated: false, isScanned: false },

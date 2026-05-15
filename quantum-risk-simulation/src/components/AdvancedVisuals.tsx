@@ -285,6 +285,8 @@ export function AnimatedCounter({ value, prefix = '', suffix = '' }: { value: nu
         };
 
         requestAnimationFrame(animate);
+        // displayValue is intentionally omitted - it's captured in closure at animation start
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     return (

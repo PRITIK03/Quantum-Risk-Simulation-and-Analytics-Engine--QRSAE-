@@ -5,8 +5,8 @@ interface State {
   error?: Error | null;
 }
 
-export class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, State> {
-  constructor(props: React.PropsWithChildren<{}>) {
+export class ErrorBoundary extends React.Component<React.PropsWithChildren<object>, State> {
+  constructor(props: { children: React.ReactNode }) {
     super(props);
     this.state = { hasError: false, error: null };
   }
@@ -15,9 +15,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, 
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, info: any) {
-    // You can wire this up to Sentry or other monitoring here
-    // eslint-disable-next-line no-console
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error('Uncaught error:', error, info);
   }
 

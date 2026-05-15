@@ -8,6 +8,8 @@ interface StatCardProps {
     subtext?: string;
     trend?: 'up' | 'down' | 'neutral';
     variant?: 'default' | 'success' | 'warning' | 'danger';
+    className?: string;
+    style?: React.CSSProperties;
 }
 
 const variantColors = {
