@@ -1,0 +1,55 @@
+[0305/005659.067:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: basicStartupComplete, start
+[0305/005659.070:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: basicStartupComplete, end, latency: 3ms
+[0305/005659.070:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: initializeICU, start
+[0305/005659.079:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: initializeICU, end, latency: 9ms
+[0305/005659.079:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: loadV8Snapshot, start
+[0305/005659.088:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: loadV8Snapshot, end, latency: 8ms
+[0305/005659.088:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: crashReporterStartup, start
+[0305/005659.138:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: crashReporterStartup, end, latency: 50ms
+[34208:6628:0305/005850.487:INFO:electron\shell\app\electron_main_delegate.cc:572] #### AhaElectron (relauncher)  Startup #### cmd:  --no-sandbox
+[34208:6628:0305/005850.678:INFO:electron\shell\app\electron_main_delegate.cc:299] #### AhaElectron (relauncher)  Shutdown ####
+[0305/005850.707:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: basicStartupComplete, start
+[0305/005850.710:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: basicStartupComplete, end, latency: 2ms
+[0305/005850.710:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: initializeICU, start
+[0305/005850.710:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: initializeICU, end, latency: 0ms
+[0305/005850.710:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: loadV8Snapshot, start
+[0305/005850.710:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: loadV8Snapshot, end, latency: 0ms
+[0305/005850.710:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: crashReporterStartup, start
+[0305/005850.753:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: crashReporterStartup, end, latency: 44ms
+[0305/005904.104:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/005942.193:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: The system cannot find the file specified. (0x2)
+[0305/005942.198:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/005942.566:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: basicStartupComplete, start
+[0305/005942.567:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: basicStartupComplete, end, latency: 2ms
+[0305/005942.567:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: initializeICU, start
+[0305/005942.567:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: initializeICU, end, latency: 0ms
+[0305/005942.567:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: loadV8Snapshot, start
+[0305/005942.567:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: loadV8Snapshot, end, latency: 0ms
+[0305/005942.568:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: crashReporterStartup, start
+[0305/005942.597:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: crashReporterStartup, end, latency: 29ms
+[0305/005949.659:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/010738.265:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/010904.766:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011036.271:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011036.275:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011036.946:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011037.961:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011038.173:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011056.046:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0305/011320.599:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012156.019:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: basicStartupComplete, start
+[0306/012156.027:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: basicStartupComplete, end, latency: 9ms
+[0306/012156.030:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: initializeICU, start
+[0306/012156.036:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: initializeICU, end, latency: 6ms
+[0306/012156.036:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: loadV8Snapshot, start
+[0306/012156.039:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: loadV8Snapshot, end, latency: 4ms
+[0306/012156.040:INFO:aha\components\metrics\metrics_base.cc:52] [startup] metric: crashReporterStartup, start
+[0306/012156.096:INFO:aha\components\metrics\metrics_base.cc:64] [startup] metric: crashReporterStartup, end, latency: 56ms
+[0306/012212.465:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012218.871:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012218.890:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012219.217:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012219.609:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012219.658:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012220.697:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder
+[0306/012220.955:INFO:gin\isolate_holder.cc:165] SetPartitionAllocOomCallback and RegisterIsolateHolder

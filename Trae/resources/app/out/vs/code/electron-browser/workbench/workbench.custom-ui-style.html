@@ -1,0 +1,117 @@
+<!-- Copyright (C) Microsoft Corporation. All rights reserved. -->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Security-Policy"
+					content="
+				default-src
+					'none'
+				;
+				img-src
+					'self'
+					data:
+					blob:
+					vscode-remote-resource:
+					vscode-managed-remote-resource:
+					https:
+				;
+				media-src
+					'self' data: blob: *
+					https://*.trae.ai
+					https://*.trae.com.cn
+					https://*.trae.cn
+					'self'
+				;
+				frame-src
+					'self'
+					vscode-webview:
+				;
+				script-src
+					'self'
+					'unsafe-eval'
+					'unsafe-inline'
+					blob:
+				;
+				style-src
+					'self'
+					'unsafe-inline'
+				;
+				connect-src
+					'self'
+					https:
+					ws:
+				;
+				font-src
+					'self'
+					data:
+					vscode-remote-resource:
+					vscode-managed-remote-resource:
+					https://*.vscode-unpkg.net
+				;
+				require-trusted-types-for
+					'script'
+				;
+				trusted-types
+					default
+					unsafe-inline
+					amdLoader
+					icubeWebview
+					icubeWebComponent
+					icubeDesktopModules
+					extensionWebComponent
+					lit-html
+					cellRendererEditorText
+					collapsedCellPreview
+					defaultWorkerFactory
+					diffEditorWidget
+					diffReview
+					domLineBreaksComputer
+					dompurify
+					editorGhostText
+					editorViewLayer
+					notebookRenderer
+					stickyScrollViewLayer
+					tokenizeToString
+					lexical
+					notebookChatEditController
+					richScreenReaderContent
+					watermark
+					icubeMarkdownWebview
+					icubeDiffEditorWidget
+					icubeDiffReview
+				;
+		" />
+
+		<link rel="preload"
+					href="../../../workbench/browser/media/JetBrainsMono-VariableFont_wght.ttf"
+					as="font"
+					type="font/ttf"
+					crossorigin="anonymous">
+		<style>
+			/* Font Families (with CJK support) */
+			@font-face {
+				font-family: "JetBrains Mono";
+				font-style: normal;
+				src: url('../../../workbench/browser/media/JetBrainsMono-VariableFont_wght.ttf') format("truetype");
+				/* ignore: U+2937 ('⤷') */
+				unicode-range: U+0-2936, U+2938-10FFFF;
+			}
+		</style>
+
+		<!-- Workbench CSS -->
+		<link rel="stylesheet"
+					href="../../../workbench/workbench.desktop.main.css">
+	</head>
+
+	<body aria-label="">
+	</body>
+
+	<script src="../scenes/desktop.config.js"></script>
+
+	<!-- Startup (do not modify order of script tags!) -->
+	<script src="./workbench.js"
+					type="module"></script>
+
+</html>
