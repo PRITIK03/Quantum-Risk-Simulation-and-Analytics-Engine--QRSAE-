@@ -1,3 +1,4 @@
+import React from 'react';
 import { Trophy, Star, Shield, Zap, Clock, Award } from 'lucide-react';
 import type { Achievement } from '../models';
 

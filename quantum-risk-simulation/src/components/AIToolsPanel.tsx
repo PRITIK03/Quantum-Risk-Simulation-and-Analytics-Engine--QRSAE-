@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FileText, Map, Zap, Download, Copy, Loader, CheckCircle } from 'lucide-react';
 import { apiService } from '../services/apiService';
 import ReactMarkdown from 'react-markdown';
-import rehypeSanitize from 'rehype-sanitize';
 
 interface AIToolsPanelProps {
     systemData: {
@@ -191,9 +190,9 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
                                         <Download size={14} /> Download
                                     </button>
                                 </div>
-                                <div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7 }}>
-                                    <ReactMarkdown rehypePlugins={[rehypeSanitize]}>{reportContent}</ReactMarkdown>
-                                </div>
+<div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7 }}>
+                                     <ReactMarkdown>{reportContent}</ReactMarkdown>
+                                 </div>
                             </div>
                         )}
                     </div>
@@ -343,9 +342,9 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
                                 <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: 'var(--accent-amber)' }}>
                                     ⚠️ Simulation Results
                                 </h3>
-                                <div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
-                                    <ReactMarkdown rehypePlugins={[rehypeSanitize]}>{scenarioResult}</ReactMarkdown>
-                                </div>
+<div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
+                                     <ReactMarkdown>{scenarioResult}</ReactMarkdown>
+                                 </div>
                             </div>
                         )}
                     </div>
