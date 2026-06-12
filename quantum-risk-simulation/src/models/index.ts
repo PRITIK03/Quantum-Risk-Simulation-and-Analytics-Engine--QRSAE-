@@ -88,3 +88,9 @@ export interface GameState {
   missions: Mission[];
   achievements: Achievement[];
 }
+
+export const vendors: Vendor[] = [
+    { id: 'cloudFirst', name: 'CloudFirst Solutions', logo: '☁️', costMultiplier: 1.3, speedMultiplier: 0.7, description: 'Premium cloud-native PQC. Fast but expensive.' },
+    { id: 'quantumShield', name: 'QuantumShield Inc', logo: '🛡️', costMultiplier: 1.0, speedMultiplier: 1.0, description: 'Balanced approach. Industry standard rates.' },
+    { id: 'quickPay', name: 'QuickPay Networks', logo: '⚡', costMultiplier: 0.8, speedMultiplier: 1.4, description: 'Budget-friendly but slower deployment.' },
+];

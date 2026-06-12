@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { vendors } from '../hooks/useGameState';
+import { vendors } from '../models';
 import type { Vendor } from '../models';
 
 interface VendorModalProps {

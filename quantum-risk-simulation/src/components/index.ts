@@ -7,5 +7,5 @@ export * from './VendorModal';
 export * from './AIToolsPanel';
 export * from './AIAssistant';
 export * from './AdvancedVisuals';
-export * from '../common/AppUI';
-export * from '../common/Charts';
+export * from './common/AppUI';
+export * from './common/Charts';

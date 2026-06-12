@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, TrendingDown, Minus, Activity } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Activity, Shield, Server, AlertTriangle } from 'lucide-react';
 import type { TimelineEvent } from '../../models';
 
 export interface MetricCardProps {

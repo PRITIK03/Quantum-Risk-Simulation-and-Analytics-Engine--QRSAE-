@@ -4,6 +4,8 @@ import {
   Activity,
   Server,
   Scan,
+  AlertTriangle,
+  CheckCircle,
 } from 'lucide-react';
 
 interface SecurityDashboardProps {
