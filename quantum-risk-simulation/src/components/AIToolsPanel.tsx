@@ -192,9 +192,9 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
                                         <Download size={14} /> Download
                                     </button>
                                 </div>
-<div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7 }}>
-                                     <ReactMarkdown>{reportContent}</ReactMarkdown>
-                                 </div>
+                                <div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7 }}>
+                                    <ReactMarkdown>{reportContent}</ReactMarkdown>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -353,6 +353,5 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
                 )}
             </div>
         </div>
-        );
     );
 }

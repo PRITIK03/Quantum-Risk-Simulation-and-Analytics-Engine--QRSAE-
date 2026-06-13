@@ -153,7 +153,6 @@ export function useGameState() {
     const migrateSystem = useCallback((systemId: string) => {
         setState(prev => {
             if (!prev.selectedVendor) {
-                addNotification('error', 'Select a vendor before migrating.');
                 return prev;
             }
 
@@ -162,7 +161,6 @@ export function useGameState() {
 
             const cost = Math.round(system.migrationCost * prev.selectedVendor.costMultiplier);
             if (prev.budget < cost) {
-                addNotification('error', 'Insufficient budget for migration.');
                 return prev;
             }
 
@@ -172,13 +170,6 @@ export function useGameState() {
 
             const migrated = updatedSystems.filter(s => s.isMigrated).length;
             const progress = Math.round((migrated / updatedSystems.length) * 100);
-            const criticalMigrated = updatedSystems.filter(s => s.isMigrated && initialSystems.find(is => is.id === s.id)?.riskLevel === 'critical').length;
-
-            // Check mission completions
-            const missionUpdates: Record<string, boolean> = {};
-            if (migrated === 1) missionUpdates.m3 = true;
-            if (criticalMigrated >= 4) missionUpdates.m4 = true;
-            if (migrated >= 8) missionUpdates.m6 = true;
 
             return {
                 ...prev,
@@ -190,16 +181,13 @@ export function useGameState() {
             };
         });
 
-        // Get system name for event
         const system = state.systems.find(s => s.id === systemId);
         if (system) {
             addNotification('success', `${system.name} migrated to PQC.`);
             addEvent('migrate', `${system.name} secured`, 'PQC-Ready');
 
             const migrated = state.systems.filter(s => s.isMigrated).length + 1;
-            const missionUpdates: Record<string, boolean> = {};
-            if (migrated === 1) missionUpdates.m3 = true;
-            updateMissions(missionUpdates);
+            if (migrated === 1) updateMissions({ m3: true });
 
             if (migrated >= 4) updateAchievements('a2');
             if (migrated >= 8) updateAchievements('a5');
