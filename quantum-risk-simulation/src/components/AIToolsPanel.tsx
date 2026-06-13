@@ -344,9 +344,9 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
                                 <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '12px', color: 'var(--accent-amber)' }}>
                                     ⚠️ Simulation Results
                                 </h3>
-<div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
-                                     <ReactMarkdown>{scenarioResult}</ReactMarkdown>
-                                 </div>
+                                <div className="markdown-content" style={{ fontSize: '14px', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
+                                    <ReactMarkdown>{scenarioResult}</ReactMarkdown>
+                                </div>
                             </div>
                         )}
                     </div>
