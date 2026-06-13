@@ -32,7 +32,7 @@ export function StatCard({ icon, label, value, subtext, trend, variant = 'defaul
         >
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
                 <span style={{ fontSize: '13px', color: 'var(--text-secondary)', fontWeight: 500 }}>{label}</span>
-                <div className={colors.icon} style={{ opacity: 0.8 }}>{icon}</div>
+                <div style={{ opacity: 0.8 }}>{icon}</div>
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '4px' }}>
                 <span className="font-mono" style={{ fontSize: '28px', fontWeight: 700, letterSpacing: '-0.02em' }}>{value}</span>
