@@ -121,12 +121,11 @@ export function useGameState() {
                 const newProgress = prev.scanningProgress + Math.random() * 15 + 5;
                 if (newProgress >= 100) {
                     clearInterval(scanInterval);
-                    const scannedSystems = prev.systems.map(s => ({ ...s, isScanned: true }));
                     return {
                         ...prev,
                         isScanning: false,
                         scanningProgress: 100,
-                        systems: scannedSystems,
+                        systems: prev.systems.map(s => ({ ...s, isScanned: true })),
                         budget: prev.budget - 50000,
                         score: prev.score + 500,
                     };
@@ -139,7 +138,7 @@ export function useGameState() {
             addEvent('scan', 'Network scan completed', '8 systems');
             updateMissions({ m1: true });
             updateAchievements('a1');
-            addNotification('success', 'Scan complete! 8 vulnerable systems discovered.');
+            addNotification('success', 'Scan complete! All vulnerable systems discovered.');
         }, 2500);
     }, [state.isScanning, addNotification, addEvent, updateMissions, updateAchievements]);
 
