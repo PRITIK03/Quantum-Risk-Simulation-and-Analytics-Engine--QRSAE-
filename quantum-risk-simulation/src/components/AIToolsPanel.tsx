@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FileText, Map, Zap, Download, Copy, Loader, CheckCircle } from 'lucide-react';
 import { apiService } from '../services/apiService';
 import ReactMarkdown from 'react-markdown';
+import { TabButton } from './common/AppUI';
 
 interface AIToolsPanelProps {
     systemData: {
@@ -115,28 +116,29 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
             {/* Tab Navigation */}
             <div style={{
                 display: 'flex',
-                gap: '8px',
-                padding: '4px',
+                gap: '10px',
+                padding: '6px',
                 background: 'var(--bg-tertiary)',
-                borderRadius: '12px',
-                width: 'fit-content'
+                borderRadius: '16px',
+                width: 'fit-content',
+                border: '1px solid var(--border-subtle)'
             }}>
                 <TabButton
                     active={activeTab === 'report'}
                     onClick={() => setActiveTab('report')}
-                    icon={<FileText size={16} />}
+                    icon={<FileText size={18} />}
                     label="Report Generator"
                 />
                 <TabButton
                     active={activeTab === 'map'}
                     onClick={() => setActiveTab('map')}
-                    icon={<Map size={16} />}
+                    icon={<Map size={18} />}
                     label="Threat Map"
                 />
                 <TabButton
                     active={activeTab === 'scenarios'}
                     onClick={() => setActiveTab('scenarios')}
-                    icon={<Zap size={16} />}
+                    icon={<Zap size={18} />}
                     label="Scenarios"
                 />
             </div>
@@ -351,35 +353,6 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
                 )}
             </div>
         </div>
-    );
-}
-
-function TabButton({ active, onClick, icon, label }: {
-    active: boolean;
-    onClick: () => void;
-    icon: React.ReactNode;
-    label: string
-}) {
-    return (
-        <button
-            onClick={onClick}
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '10px 16px',
-                background: active ? 'var(--gradient-primary)' : 'transparent',
-                border: 'none',
-                borderRadius: '8px',
-                color: active ? 'white' : 'var(--text-secondary)',
-                fontSize: '13px',
-                fontWeight: 500,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-            }}
-        >
-            {icon}
-            {label}
-        </button>
+        );
     );
 }

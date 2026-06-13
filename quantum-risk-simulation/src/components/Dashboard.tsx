@@ -13,10 +13,10 @@ interface StatCardProps {
 }
 
 const variantColors = {
-    default: { icon: 'text-indigo-400', border: 'border-indigo-500/20', glow: 'rgba(99, 102, 241, 0.1)' },
-    success: { icon: 'text-emerald-400', border: 'border-emerald-500/20', glow: 'rgba(16, 185, 129, 0.1)' },
-    warning: { icon: 'text-amber-400', border: 'border-amber-500/20', glow: 'rgba(245, 158, 11, 0.1)' },
-    danger: { icon: 'text-rose-400', border: 'border-rose-500/20', glow: 'rgba(244, 63, 94, 0.1)' },
+    default: { glow: 'rgba(99, 102, 241, 0.1)' },
+    success: { glow: 'rgba(16, 185, 129, 0.1)' },
+    warning: { glow: 'rgba(245, 158, 11, 0.1)' },
+    danger: { glow: 'rgba(244, 63, 94, 0.1)' },
 };
 
 export function StatCard({ icon, label, value, subtext, trend, variant = 'default' }: StatCardProps) {
