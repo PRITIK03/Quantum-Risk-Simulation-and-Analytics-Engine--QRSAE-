@@ -12,7 +12,6 @@ interface SystemDetailDrawerProps {
 
 export function SystemDetailDrawer({
   system,
-  vendors,
   selectedVendor,
   isOpen,
   onClose,

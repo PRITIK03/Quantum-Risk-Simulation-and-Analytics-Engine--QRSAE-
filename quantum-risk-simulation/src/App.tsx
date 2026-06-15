@@ -48,7 +48,6 @@ function App() {
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('systems');
   const [selectedSystemId, setSelectedSystemId] = useState<string | null>(null);
-  const [soundEnabled, setSoundEnabled] = useState(true);
 
   const formatCurrency = useCallback((amount: number) => {
     if (amount >= 1000000) {
@@ -79,10 +78,6 @@ function App() {
         event.preventDefault();
         setIsVendorModalOpen(true);
       }
-      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
-        event.preventDefault();
-        setSoundEnabled(prev => !prev);
-      }
       if (event.key === 'Escape') {
         closeSystemDrawer();
         setIsVendorModalOpen(false);
@@ -92,13 +87,6 @@ function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [startScan, advanceDay, closeSystemDrawer]);
-
-  useEffect(() => {
-    if (!('Notification' in window)) return;
-    if (Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
-  }, []);
 
   const budgetPercentage = useMemo(() => Math.round((state.budget / state.maxBudget) * 100), [state.budget, state.maxBudget]);
   const criticalSystems = useMemo(() => state.systems.filter(s => s.riskLevel === 'critical' && !s.isMigrated).length, [state.systems]);
@@ -536,6 +524,15 @@ function App() {
           budget: state.budget,
           day: state.day
         }}
+      />
+
+      <SystemDetailDrawer
+        system={selectedSystemId ? state.systems.find(s => s.id === selectedSystemId) || null : null}
+        vendors={[]}
+        selectedVendor={state.selectedVendor}
+        isOpen={!!selectedSystemId}
+        onClose={closeSystemDrawer}
+        onMigrate={migrateSystem}
       />
     </div>
   );
