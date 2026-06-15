@@ -421,6 +421,7 @@ function App() {
                         <SystemsGrid
                           systems={state.systems}
                           onMigrate={migrateSystem}
+                          onViewDetails={openSystemDrawer}
                           hasVendor={!!state.selectedVendor}
                         />
                       </div>

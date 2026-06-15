@@ -9,3 +9,4 @@ export * from './AIAssistant';
 export * from './AdvancedVisuals';
 export * from './common/AppUI';
 export * from './common/Charts';
+export * from './common/SystemDetailDrawer';

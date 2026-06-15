@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, Shield, Clock, DollarSign, AlertTriangle, CheckCircle2, Server } from 'lucide-react';
 import type { BankingSystem, Vendor } from '../../models';
 
