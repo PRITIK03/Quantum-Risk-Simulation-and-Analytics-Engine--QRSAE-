@@ -7,6 +7,7 @@ import {
   Scan,
   Users,
   ChevronRight,
+  ChevronDown,
   Bell,
   SkipForward,
   AlertCircle,
@@ -46,6 +47,7 @@ function App() {
   const { state, rank, advanceDay, startScan, selectVendor, migrateSystem } = useGameState();
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('systems');
+  const [quickActionsOpen, setQuickActionsOpen] = useState(true);
 
   const formatCurrency = useCallback((amount: number) => {
     if (amount >= 1000000) {
@@ -215,50 +217,75 @@ function App() {
 
             {/* Action Panel */}
             <div className="glass-card" style={{ padding: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--accent-primary)',
-                  animation: 'pulse 2s infinite'
-                }} />
-                Quick Actions
-              </h3>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <button
-                  className="btn btn-primary"
-                  onClick={startScan}
-                  disabled={state.isScanning || hasScannedSystems}
+              <button
+                onClick={() => setQuickActionsOpen(prev => !prev)}
+                style={{
+                  width: '100%',
+                  background: 'transparent',
+                  border: 'none',
+                  color: 'var(--text-primary)',
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <h3 style={{ fontSize: '14px', fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    background: 'var(--accent-primary)',
+                    animation: 'pulse 2s infinite'
+                  }} />
+                  Quick Actions
+                </h3>
+                <ChevronDown
+                  size={16}
                   style={{
-                    width: '100%',
-                    opacity: (state.isScanning || hasScannedSystems) ? 0.5 : 1
+                    transform: quickActionsOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+                    transition: 'transform 0.2s ease',
+                    color: 'var(--text-muted)',
                   }}
-                >
-                  <Scan size={18} />
-                  {state.isScanning ? 'Scanning...' : hasScannedSystems ? 'Scan Complete' : 'Run Network Scan'}
-                </button>
+                />
+              </button>
 
-                <button
-                  className="btn btn-ghost"
-                  onClick={() => setIsVendorModalOpen(true)}
-                  style={{ width: '100%' }}
-                >
-                  <Users size={18} />
-                  {state.selectedVendor ? state.selectedVendor.name : 'Select Vendor'}
-                </button>
+              {quickActionsOpen && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '16px' }}>
+                  <button
+                    className="btn btn-primary"
+                    onClick={startScan}
+                    disabled={state.isScanning || hasScannedSystems}
+                    style={{
+                      width: '100%',
+                      opacity: (state.isScanning || hasScannedSystems) ? 0.5 : 1
+                    }}
+                  >
+                    <Scan size={18} />
+                    {state.isScanning ? 'Scanning...' : hasScannedSystems ? 'Scan Complete' : 'Run Network Scan'}
+                  </button>
 
-                <button
-                  className="btn btn-ghost"
-                  onClick={advanceDay}
-                  disabled={state.day >= 15}
-                  style={{ width: '100%', opacity: state.day >= 15 ? 0.5 : 1 }}
-                >
-                  <SkipForward size={18} />
-                  {state.day >= 15 ? 'Sprint Complete' : 'Advance Day'}
-                </button>
-              </div>
+                  <button
+                    className="btn btn-ghost"
+                    onClick={() => setIsVendorModalOpen(true)}
+                    style={{ width: '100%' }}
+                  >
+                    <Users size={18} />
+                    {state.selectedVendor ? state.selectedVendor.name : 'Select Vendor'}
+                  </button>
+
+                  <button
+                    className="btn btn-ghost"
+                    onClick={advanceDay}
+                    disabled={state.day >= 15}
+                    style={{ width: '100%', opacity: state.day >= 15 ? 0.5 : 1 }}
+                  >
+                    <SkipForward size={18} />
+                    {state.day >= 15 ? 'Sprint Complete' : 'Advance Day'}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Progress Ring */}
@@ -460,8 +487,66 @@ function App() {
             </div>
 
             {/* Quick Stats */}
-            <div className="glass-card" style={{ padding: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>Session Stats</h3>
+            <div className="glass-card" style={{ padding: '20px', position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '14px', fontWeight: 600, margin: 0 }}>Session Stats</h3>
+                <div
+                  style={{ position: 'relative', display: 'inline-flex' }}
+                >
+                  <div
+                    style={{
+                      padding: '6px 10px',
+                      borderRadius: '10px',
+                      background: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-subtle)',
+                      fontSize: '11px',
+                      color: 'var(--text-muted)',
+                      cursor: 'default',
+                    }}
+                  >
+                    ⌨️ Shortcuts
+                  </div>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: '110%',
+                      width: '220px',
+                      padding: '12px',
+                      background: 'var(--bg-tertiary)',
+                      border: '1px solid var(--border-subtle)',
+                      borderRadius: '12px',
+                      boxShadow: 'var(--shadow-lg)',
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      transform: 'translateY(4px)',
+                      transition: 'opacity 0.2s ease, transform 0.2s ease',
+                      zIndex: 10,
+                    }}
+                    className="shortcuts-tooltip"
+                  >
+                    <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-secondary)' }}>Keyboard shortcuts</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
+                        <span>Run scan</span>
+                        <span style={{ fontFamily: 'var(--font-mono)' }}>⌘/Ctrl + S</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
+                        <span>Advance day</span>
+                        <span style={{ fontFamily: 'var(--font-mono)' }}>⌘/Ctrl + D</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
+                        <span>Open vendor picker</span>
+                        <span style={{ fontFamily: 'var(--font-mono)' }}>⌘/Ctrl + V</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
+                        <span>Close dialogs</span>
+                        <span style={{ fontFamily: 'var(--font-mono)' }}>Esc</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <QuickStat label="Score" value={<AnimatedCounter value={state.score} />} />
                 <QuickStat label="Day" value={`${state.day}/15`} />
