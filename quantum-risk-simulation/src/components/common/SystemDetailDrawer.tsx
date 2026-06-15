@@ -3,7 +3,6 @@ import type { BankingSystem, Vendor } from '../../models';
 
 interface SystemDetailDrawerProps {
   system: BankingSystem | null;
-  vendors: Vendor[];
   selectedVendor: Vendor | null;
   isOpen: boolean;
   onClose: () => void;
