@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import {
   Shield,
   DollarSign,
@@ -30,6 +30,7 @@ import {
   SecurityDashboard,
   TabButton,
   QuickStat,
+  SystemDetailDrawer,
 } from './components';
 import { VendorModal } from './components/VendorModal';
 import { SystemsGrid } from './components/SystemsGrid';
@@ -46,12 +47,57 @@ function App() {
   const { state, rank, advanceDay, startScan, selectVendor, migrateSystem } = useGameState();
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('systems');
+  const [selectedSystemId, setSelectedSystemId] = useState<string | null>(null);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   const formatCurrency = useCallback((amount: number) => {
     if (amount >= 1000000) {
       return `$${(amount / 1000000).toFixed(1)}M`;
     }
     return `$${(amount / 1000).toFixed(0)}K`;
+  }, []);
+
+  const openSystemDrawer = useCallback((systemId: string) => {
+    setSelectedSystemId(systemId);
+  }, []);
+
+  const closeSystemDrawer = useCallback(() => {
+    setSelectedSystemId(null);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+        event.preventDefault();
+        startScan();
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key === 'd') {
+        event.preventDefault();
+        advanceDay();
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key === 'v') {
+        event.preventDefault();
+        setIsVendorModalOpen(true);
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+        event.preventDefault();
+        setSoundEnabled(prev => !prev);
+      }
+      if (event.key === 'Escape') {
+        closeSystemDrawer();
+        setIsVendorModalOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [startScan, advanceDay, closeSystemDrawer]);
+
+  useEffect(() => {
+    if (!('Notification' in window)) return;
+    if (Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
   }, []);
 
   const budgetPercentage = useMemo(() => Math.round((state.budget / state.maxBudget) * 100), [state.budget, state.maxBudget]);

@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { Server, Database, Globe, Cpu, Lock, Check, ArrowRight } from 'lucide-react';
+import { Server, Database, Globe, Cpu, Lock, Check, ArrowRight, Eye } from 'lucide-react';
 import type { BankingSystem } from '../models';
 
 const typeIcons: Record<BankingSystem['type'], JSX.Element> = {
@@ -12,10 +12,11 @@ const typeIcons: Record<BankingSystem['type'], JSX.Element> = {
 interface SystemsGridProps {
     systems: BankingSystem[];
     onMigrate: (id: string) => void;
+    onViewDetails?: (id: string) => void;
     hasVendor: boolean;
 }
 
-export function SystemsGrid({ systems, onMigrate, hasVendor }: SystemsGridProps) {
+export function SystemsGrid({ systems, onMigrate, onViewDetails, hasVendor }: SystemsGridProps) {
     const scannedSystems = systems.filter(s => s.isScanned);
 
     if (scannedSystems.length === 0) {
@@ -43,6 +44,7 @@ export function SystemsGrid({ systems, onMigrate, hasVendor }: SystemsGridProps)
                     key={system.id}
                     system={system}
                     onMigrate={onMigrate}
+                    onViewDetails={onViewDetails}
                     hasVendor={hasVendor}
                     delay={index * 0.05}
                 />
@@ -54,11 +56,12 @@ export function SystemsGrid({ systems, onMigrate, hasVendor }: SystemsGridProps)
 interface SystemCardProps {
     system: BankingSystem;
     onMigrate: (id: string) => void;
+    onViewDetails?: (id: string) => void;
     hasVendor: boolean;
     delay: number;
 }
 
-function SystemCard({ system, onMigrate, hasVendor, delay }: SystemCardProps) {
+function SystemCard({ system, onMigrate, onViewDetails, hasVendor, delay }: SystemCardProps) {
     const formatCost = (cost: number) => {
         return `$${(cost / 1000000).toFixed(0)}M`;
     };
@@ -71,7 +74,9 @@ function SystemCard({ system, onMigrate, hasVendor, delay }: SystemCardProps) {
                 animationDelay: `${delay}s`,
                 opacity: system.isMigrated ? 0.7 : 1,
                 transition: 'all 0.3s ease',
+                cursor: onViewDetails ? 'pointer' : 'default',
             }}
+            onClick={() => onViewDetails?.(system.id)}
         >
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -94,9 +99,29 @@ function SystemCard({ system, onMigrate, hasVendor, delay }: SystemCardProps) {
                         </span>
                     </div>
                 </div>
-                <span className={`badge badge-${system.riskLevel}`}>
-                    {system.riskLevel}
-                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {onViewDetails && (
+                        <button
+                            className="btn btn-ghost"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onViewDetails(system.id);
+                            }}
+                            style={{
+                                padding: '4px',
+                                opacity: 0.6,
+                                minWidth: '28px',
+                                height: '28px',
+                            }}
+                            title="View details"
+                        >
+                            <Eye size={14} />
+                        </button>
+                    )}
+                    <span className={`badge badge-${system.riskLevel}`}>
+                        {system.riskLevel}
+                    </span>
+                </div>
             </div>
 
             <div style={{ display: 'flex', gap: '16px', marginBottom: '12px' }}>
@@ -123,7 +148,10 @@ function SystemCard({ system, onMigrate, hasVendor, delay }: SystemCardProps) {
             {!system.isMigrated && (
                 <button
                     className="btn btn-ghost"
-                    onClick={() => onMigrate(system.id)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onMigrate(system.id);
+                    }}
                     disabled={!hasVendor}
                     style={{
                         width: '100%',
