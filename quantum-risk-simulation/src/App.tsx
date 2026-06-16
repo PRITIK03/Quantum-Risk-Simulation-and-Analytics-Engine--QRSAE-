@@ -7,7 +7,6 @@ import {
   Scan,
   Users,
   ChevronRight,
-  ChevronDown,
   Bell,
   SkipForward,
   AlertCircle,
@@ -25,7 +24,6 @@ import { useGameState } from './hooks/useGameState';
 import {
   StatCard,
   ProgressRing,
-  ScanAnimation,
   QDayCountdown,
   DayCounter,
   SecurityDashboard,
@@ -47,7 +45,6 @@ function App() {
   const { state, rank, advanceDay, startScan, selectVendor, migrateSystem } = useGameState();
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('systems');
-  const [quickActionsOpen, setQuickActionsOpen] = useState(true);
 
   const formatCurrency = useCallback((amount: number) => {
     if (amount >= 1000000) {
@@ -89,7 +86,6 @@ function App() {
 
   return (
     <div className="grid-bg" style={{ minHeight: '100vh', padding: '24px', position: 'relative', overflow: 'hidden' }}>
-      {/* Background Effects */}
       <HexagonBackground />
       <div style={{ position: 'fixed', top: '-100px', right: '-100px', zIndex: 0 }}>
         <GlowingOrb color="var(--accent-primary)" size={400} />
@@ -99,8 +95,6 @@ function App() {
       </div>
 
       <div style={{ maxWidth: '1800px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-
-        {/* Header */}
         <header className="glass-card animate-slide-in" style={{
           padding: '24px 32px',
           marginBottom: '24px',
@@ -153,7 +147,6 @@ function App() {
           </div>
         </header>
 
-        {/* Stats Row */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
@@ -199,282 +192,104 @@ function App() {
           />
         </div>
 
-        {/* Main Content */}
         <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr 320px', gap: '24px' }}>
-
-          {/* Left Sidebar */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-            {/* Score Board */}
-            <ScoreBoard
-              score={state.score}
-              rank={rank}
-              achievements={state.achievements}
-            />
-
-            {/* Threat Radar */}
+            <ScoreBoard score={state.score} rank={rank} achievements={state.achievements} />
             <ThreatRadar threatLevel={100 - state.migrationProgress} />
 
-            {/* Action Panel */}
             <div className="glass-card" style={{ padding: '20px' }}>
-              <button
-                onClick={() => setQuickActionsOpen(prev => !prev)}
-                style={{
-                  width: '100%',
-                  background: 'transparent',
-                  border: 'none',
-                  color: 'var(--text-primary)',
-                  cursor: 'pointer',
-                  padding: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <h3 style={{ fontSize: '14px', fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{
-                    width: '6px',
-                    height: '6px',
-                    borderRadius: '50%',
-                    background: 'var(--accent-primary)',
-                    animation: 'pulse 2s infinite'
-                  }} />
-                  Quick Actions
-                </h3>
-                <ChevronDown
-                  size={16}
-                  style={{
-                    transform: quickActionsOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
-                    transition: 'transform 0.2s ease',
-                    color: 'var(--text-muted)',
-                  }}
-                />
-              </button>
-
-              {quickActionsOpen && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '16px' }}>
-                  <button
-                    className="btn btn-primary"
-                    onClick={startScan}
-                    disabled={state.isScanning || hasScannedSystems}
-                    style={{
-                      width: '100%',
-                      opacity: (state.isScanning || hasScannedSystems) ? 0.5 : 1
-                    }}
-                  >
-                    <Scan size={18} />
-                    {state.isScanning ? 'Scanning...' : hasScannedSystems ? 'Scan Complete' : 'Run Network Scan'}
-                  </button>
-
-                  <button
-                    className="btn btn-ghost"
-                    onClick={() => setIsVendorModalOpen(true)}
-                    style={{ width: '100%' }}
-                  >
-                    <Users size={18} />
-                    {state.selectedVendor ? state.selectedVendor.name : 'Select Vendor'}
-                  </button>
-
-                  <button
-                    className="btn btn-ghost"
-                    onClick={advanceDay}
-                    disabled={state.day >= 15}
-                    style={{ width: '100%', opacity: state.day >= 15 ? 0.5 : 1 }}
-                  >
-                    <SkipForward size={18} />
-                    {state.day >= 15 ? 'Sprint Complete' : 'Advance Day'}
-                  </button>
-                </div>
-              )}
+              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-primary)', animation: 'pulse 2s infinite' }} />
+                Quick Actions
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <button className="btn btn-primary" onClick={startScan} disabled={state.isScanning || hasScannedSystems} style={{ width: '100%', opacity: (state.isScanning || hasScannedSystems) ? 0.5 : 1 }}>
+                  <Scan size={18} />
+                  {state.isScanning ? 'Scanning...' : hasScannedSystems ? 'Scan Complete' : 'Run Network Scan'}
+                </button>
+                <button className="btn btn-ghost" onClick={() => setIsVendorModalOpen(true)} style={{ width: '100%' }}>
+                  <Users size={18} />
+                  {state.selectedVendor ? state.selectedVendor.name : 'Select Vendor'}
+                </button>
+                <button className="btn btn-ghost" onClick={advanceDay} disabled={state.day >= 15} style={{ width: '100%', opacity: state.day >= 15 ? 0.5 : 1 }}>
+                  <SkipForward size={18} />
+                  {state.day >= 15 ? 'Sprint Complete' : 'Advance Day'}
+                </button>
+              </div>
             </div>
 
-            {/* Progress Ring */}
             <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '20px', color: 'var(--text-secondary)' }}>
-                Overall Security
-              </h3>
+              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '20px', color: 'var(--text-secondary)' }}>Overall Security</h3>
               <ProgressRing progress={state.migrationProgress} size={140} label="Protected" />
               <div style={{ marginTop: '16px', textAlign: 'center' }}>
                 <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                  {state.migrationProgress === 0
-                    ? 'Run a scan to begin'
-                    : state.migrationProgress < 50
-                      ? 'Your infrastructure is at risk'
-                      : state.migrationProgress < 100
-                        ? 'Making good progress!'
-                        : '🎉 All systems secured!'
-                  }
+                  {state.migrationProgress === 0 ? 'Run a scan to begin' : state.migrationProgress < 50 ? 'Your infrastructure is at risk' : state.migrationProgress < 100 ? 'Making good progress!' : '🎉 All systems secured!'}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Center Content Area */}
-          <div className="glass-card animate-fade-in" style={{
-            padding: '28px',
-            display: 'flex',
-            flexDirection: 'column',
-            animationDelay: '0.3s'
-          }}>
-
-            {/* Tab Navigation */}
-            <div style={{
-              display: 'flex',
-              gap: '10px',
-              marginBottom: '24px',
-              padding: '6px',
-              background: 'var(--bg-tertiary)',
-              borderRadius: '16px',
-              width: 'fit-content',
-              border: '1px solid var(--border-subtle)'
-            }}>
-              <TabButton
-                active={activeTab === 'systems'}
-                onClick={() => setActiveTab('systems')}
-                icon={<LayoutGrid size={18} />}
-                label="Systems"
-              />
-              <TabButton
-                active={activeTab === 'analytics'}
-                onClick={() => setActiveTab('analytics')}
-                icon={<BarChart3 size={18} />}
-                label="Analytics"
-              />
-              <TabButton
-                active={activeTab === 'security'}
-                onClick={() => setActiveTab('security')}
-                icon={<Radar size={18} />}
-                label="Security"
-              />
-              <TabButton
-                active={activeTab === 'missions'}
-                onClick={() => setActiveTab('missions')}
-                icon={<Target size={18} />}
-                label="Missions"
-              />
-              <TabButton
-                active={activeTab === 'tools'}
-                onClick={() => setActiveTab('tools')}
-                icon={<Zap size={18} />}
-                label="AI Tools"
-              />
+          <div className="glass-card animate-fade-in" style={{ padding: '28px', display: 'flex', flexDirection: 'column', animationDelay: '0.3s' }}>
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '24px', padding: '6px', background: 'var(--bg-tertiary)', borderRadius: '16px', width: 'fit-content', border: '1px solid var(--border-subtle)' }}>
+              <TabButton active={activeTab === 'systems'} onClick={() => setActiveTab('systems')} icon={<LayoutGrid size={18} />} label="Systems" />
+              <TabButton active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')} icon={<BarChart3 size={18} />} label="Analytics" />
+              <TabButton active={activeTab === 'security'} onClick={() => setActiveTab('security')} icon={<Radar size={18} />} label="Security" />
+              <TabButton active={activeTab === 'missions'} onClick={() => setActiveTab('missions')} icon={<Target size={18} />} label="Missions" />
+              <TabButton active={activeTab === 'tools'} onClick={() => setActiveTab('tools')} icon={<Zap size={18} />} label="AI Tools" />
             </div>
 
-            {/* Tab Content */}
             <div style={{ flex: 1, minHeight: 0 }}>
               {activeTab === 'systems' && (
                 <>
-                  {/* Scan Animation */}
-                  {(state.isScanning || !hasScannedSystems) && (
-                    <div style={{ marginBottom: '24px' }}>
-                      <ScanAnimation isScanning={state.isScanning} progress={state.scanningProgress} />
-                    </div>
-                  )}
-
-                  {/* Systems Grid */}
-                  {hasScannedSystems && (
+                  {hasScannedSystems ? (
                     <>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        marginBottom: '20px'
-                      }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
                         <div>
-                          <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '4px' }}>
-                            Discovered Systems
-                          </h2>
-                          <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
-                            Click to migrate vulnerable systems to post-quantum encryption
-                          </p>
+                          <h2 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '4px' }}>Discovered Systems</h2>
+                          <p style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Click a card to inspect and migrate systems.</p>
                         </div>
                         {!state.selectedVendor && (
-                          <button
-                            className="btn btn-ghost"
-                            onClick={() => setIsVendorModalOpen(true)}
-                            style={{ fontSize: '13px' }}
-                          >
+                          <button className="btn btn-ghost" onClick={() => setIsVendorModalOpen(true)} style={{ fontSize: '13px' }}>
                             Select Vendor to Migrate <ChevronRight size={16} />
                           </button>
                         )}
                       </div>
-                      <div style={{ overflowY: 'auto', maxHeight: '500px' }}>
-                        <SystemsGrid
-                          systems={state.systems}
-                          onMigrate={migrateSystem}
-                          hasVendor={!!state.selectedVendor}
-                        />
-                      </div>
+                      <SystemsGrid systems={state.systems} onMigrate={migrateSystem} hasVendor={!!state.selectedVendor} />
                     </>
+                  ) : (
+                    <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted)' }}>Run a network scan to discover vulnerable systems.</div>
                   )}
                 </>
               )}
-
               {activeTab === 'analytics' && (
-                <AnalyticsPanel
-                  budget={state.budget}
-                  maxBudget={state.maxBudget}
-                  migrationProgress={state.migrationProgress}
-                  uptime={state.uptime}
-                  day={state.day}
-                  events={state.events}
-                  systemsData={systemsData}
-                />
+                <AnalyticsPanel budget={state.budget} maxBudget={state.maxBudget} migrationProgress={state.migrationProgress} uptime={state.uptime} day={state.day} events={state.events} systemsData={systemsData} />
               )}
-
               {activeTab === 'security' && (
-                <SecurityDashboard
-                  migrationProgress={state.migrationProgress}
-                  criticalSystems={criticalSystems}
-                  totalSystems={state.systems.length}
-                  uptime={state.uptime}
-                />
+                <SecurityDashboard migrationProgress={state.migrationProgress} criticalSystems={criticalSystems} totalSystems={state.systems.length} uptime={state.uptime} />
               )}
-
-              {activeTab === 'missions' && (
-                <MissionsPanel
-                  missions={state.missions}
-                  currentDay={state.day}
-                />
-              )}
-
-              {activeTab === 'tools' && (
-                <AIToolsPanel systemData={toolsData} />
-              )}
+              {activeTab === 'missions' && <MissionsPanel missions={state.missions} currentDay={state.day} />}
+              {activeTab === 'tools' && <AIToolsPanel systemData={toolsData} />}
             </div>
           </div>
 
-          {/* Right Sidebar - Notifications */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
-            {/* Threat Level */}
             <ThreatLevelIndicator level={threatLevel} />
-
-            {/* Risk Gauges */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <RiskGauge value={state.migrationProgress} label="Security" color="var(--accent-emerald)" />
               <RiskGauge value={100 - budgetPercentage} label="Budget Used" color="var(--accent-amber)" />
             </div>
-
-            {/* Notifications */}
             <div className="glass-card" style={{ padding: '20px', flex: 1 }}>
               <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Bell size={16} style={{ color: 'var(--accent-primary)' }} />
-                Activity Log
+                <Bell size={16} style={{ color: 'var(--accent-primary)' }} /> Activity Log
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '300px', overflowY: 'auto' }}>
                 {state.notifications.length === 0 ? (
                   <p style={{ fontSize: '13px', color: 'var(--text-muted)', textAlign: 'center', padding: '40px 20px' }}>
-                    No recent activity.<br />
-                    <span style={{ fontSize: '12px' }}>Run a scan to begin.</span>
+                    No recent activity.<br /><span style={{ fontSize: '12px' }}>Run a scan to begin.</span>
                   </p>
                 ) : (
                   state.notifications.map((notif, index) => (
-                    <div
-                      key={notif.id}
-                      className={`notification notification-${notif.type} animate-slide-in`}
-                      style={{ animationDelay: `${index * 0.05}s` }}
-                    >
+                    <div key={notif.id} className={`notification notification-${notif.type} animate-slide-in`} style={{ animationDelay: `${index * 0.05}s` }}>
                       {notif.type === 'success' && <CheckCircle size={14} />}
                       {notif.type === 'error' && <AlertCircle size={14} />}
                       {notif.type === 'warning' && <AlertTriangle size={14} />}
@@ -485,68 +300,8 @@ function App() {
                 )}
               </div>
             </div>
-
-            {/* Quick Stats */}
-            <div className="glass-card" style={{ padding: '20px', position: 'relative' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
-                <h3 style={{ fontSize: '14px', fontWeight: 600, margin: 0 }}>Session Stats</h3>
-                <div
-                  style={{ position: 'relative', display: 'inline-flex' }}
-                >
-                  <div
-                    style={{
-                      padding: '6px 10px',
-                      borderRadius: '10px',
-                      background: 'var(--bg-tertiary)',
-                      border: '1px solid var(--border-subtle)',
-                      fontSize: '11px',
-                      color: 'var(--text-muted)',
-                      cursor: 'default',
-                    }}
-                  >
-                    ⌨️ Shortcuts
-                  </div>
-                  <div
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: '110%',
-                      width: '220px',
-                      padding: '12px',
-                      background: 'var(--bg-tertiary)',
-                      border: '1px solid var(--border-subtle)',
-                      borderRadius: '12px',
-                      boxShadow: 'var(--shadow-lg)',
-                      opacity: 0,
-                      pointerEvents: 'none',
-                      transform: 'translateY(4px)',
-                      transition: 'opacity 0.2s ease, transform 0.2s ease',
-                      zIndex: 10,
-                    }}
-                    className="shortcuts-tooltip"
-                  >
-                    <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '8px', color: 'var(--text-secondary)' }}>Keyboard shortcuts</div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
-                        <span>Run scan</span>
-                        <span style={{ fontFamily: 'var(--font-mono)' }}>⌘/Ctrl + S</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
-                        <span>Advance day</span>
-                        <span style={{ fontFamily: 'var(--font-mono)' }}>⌘/Ctrl + D</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
-                        <span>Open vendor picker</span>
-                        <span style={{ fontFamily: 'var(--font-mono)' }}>⌘/Ctrl + V</span>
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--text-muted)' }}>
-                        <span>Close dialogs</span>
-                        <span style={{ fontFamily: 'var(--font-mono)' }}>Esc</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="glass-card" style={{ padding: '20px' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>Session Stats</h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <QuickStat label="Score" value={<AnimatedCounter value={state.score} />} />
                 <QuickStat label="Day" value={`${state.day}/15`} />
@@ -558,23 +313,8 @@ function App() {
         </div>
       </div>
 
-      {/* Vendor Modal */}
-      <VendorModal
-        isOpen={isVendorModalOpen}
-        onClose={() => setIsVendorModalOpen(false)}
-        onSelect={selectVendor}
-        selectedVendor={state.selectedVendor}
-      />
-
-      {/* AI Assistant */}
-      <AIAssistant
-        systemContext={{
-          criticalSystems,
-          migrationProgress: state.migrationProgress,
-          budget: state.budget,
-          day: state.day
-        }}
-      />
+      <VendorModal isOpen={isVendorModalOpen} onClose={() => setIsVendorModalOpen(false)} onSelect={selectVendor} selectedVendor={state.selectedVendor} />
+      <AIAssistant systemContext={{ criticalSystems, migrationProgress: state.migrationProgress, budget: state.budget, day: state.day }} />
     </div>
   );
 }
