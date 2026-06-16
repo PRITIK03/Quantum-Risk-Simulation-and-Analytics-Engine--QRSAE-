@@ -17,7 +17,8 @@ import {
   BarChart3,
   Target,
   Radar,
-  Zap
+  Zap,
+  Trophy
 } from 'lucide-react';
 import './index.css';
 import { useGameState } from './hooks/useGameState';
@@ -28,21 +29,20 @@ import {
   DayCounter,
   SecurityDashboard,
   TabButton,
-  QuickStat,
 } from './components';
 import { VendorModal } from './components/VendorModal';
 import { SystemsGrid } from './components/SystemsGrid';
 import { MissionsPanel } from './components/MissionsPanel';
 import { AnalyticsPanel } from './components/AnalyticsPanel';
 import { ScoreBoard } from './components/ScoreBoard';
-import { ThreatRadar, RiskGauge, NetworkPulse, ThreatLevelIndicator, HexagonBackground, GlowingOrb, AnimatedCounter } from './components/AdvancedVisuals';
+import { ThreatRadar, RiskGauge, NetworkPulse, ThreatLevelIndicator, HexagonBackground, GlowingOrb } from './components/AdvancedVisuals';
 import { AIAssistant } from './components/AIAssistant';
 import { AIToolsPanel } from './components/AIToolsPanel';
 
 type TabType = 'systems' | 'analytics' | 'missions' | 'security' | 'tools';
 
 function App() {
-  const { state, rank, advanceDay, startScan, selectVendor, migrateSystem } = useGameState();
+  const { state, advanceDay, startScan, selectVendor, migrateSystem } = useGameState();
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('systems');
 
@@ -194,7 +194,7 @@ function App() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr 320px', gap: '24px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <ScoreBoard score={state.score} rank={rank} achievements={state.achievements} />
+            <ScoreBoard score={state.score} achievements={state.achievements} />
             <ThreatRadar threatLevel={100 - state.migrationProgress} />
 
             <div className="glass-card" style={{ padding: '20px' }}>
@@ -303,10 +303,15 @@ function App() {
             <div className="glass-card" style={{ padding: '20px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>Session Stats</h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <QuickStat label="Score" value={<AnimatedCounter value={state.score} />} />
-                <QuickStat label="Day" value={`${state.day}/15`} />
-                <QuickStat label="Migrated" value={`${state.totalSystemsMigrated}/8`} />
-                <QuickStat label="Events" value={state.events.length.toString()} />
+                <StatCard
+                  icon={<Trophy size={14} />}
+                  label="Score"
+                  value={state.score.toLocaleString()}
+                  variant="default"
+                />
+                <StatCard icon={<Target size={14} />} label="Day" value={`${state.day}/15`} variant="default" />
+                <StatCard icon={<Server size={14} />} label="Migrated" value={`${state.totalSystemsMigrated}/8`} variant="default" />
+                <StatCard icon={<Activity size={14} />} label="Events" value={state.events.length.toString()} variant="default" />
               </div>
             </div>
           </div>

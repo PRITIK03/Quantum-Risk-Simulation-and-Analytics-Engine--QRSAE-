@@ -4,11 +4,11 @@ import type { Achievement } from '../models';
 
 interface ScoreBoardProps {
     score: number;
-    rank: string;
+    rank?: string;
     achievements: Achievement[];
 }
 
-export function ScoreBoard({ score, rank, achievements }: ScoreBoardProps) {
+export function ScoreBoard({ score, rank = 'Trainee', achievements }: ScoreBoardProps) {
     const unlockedCount = achievements.filter(a => a.isUnlocked).length;
 
     const iconMap: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
