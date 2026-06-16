@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Shield,
   DollarSign,
@@ -46,12 +46,10 @@ function App() {
   const [isVendorModalOpen, setIsVendorModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('systems');
 
-  const formatCurrency = useCallback((amount: number) => {
-    if (amount >= 1000000) {
-      return `$${(amount / 1000000).toFixed(1)}M`;
-    }
+  const formatCurrency = (amount: number) => {
+    if (amount >= 1000000) return `$${(amount / 1000000).toFixed(1)}M`;
     return `$${(amount / 1000).toFixed(0)}K`;
-  }, []);
+  };
 
   const budgetPercentage = useMemo(() => Math.round((state.budget / state.maxBudget) * 100), [state.budget, state.maxBudget]);
   const criticalSystems = useMemo(() => state.systems.filter(s => s.riskLevel === 'critical' && !s.isMigrated).length, [state.systems]);
