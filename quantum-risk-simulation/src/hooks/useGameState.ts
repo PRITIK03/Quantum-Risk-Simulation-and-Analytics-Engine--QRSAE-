@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import type { BankingSystem, Vendor, Notification, GameState, Mission, Achievement, TimelineEvent } from '../models';
+import type { Vendor, Notification, GameState, TimelineEvent } from '../models';
 import { initialSystems, initialMissions, initialAchievements } from '../models';
 
 export function useGameState() {
