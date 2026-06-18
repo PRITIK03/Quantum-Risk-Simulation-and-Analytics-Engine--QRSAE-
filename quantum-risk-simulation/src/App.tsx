@@ -7,18 +7,13 @@ import {
   Scan,
   Users,
   ChevronRight,
-  Bell,
   SkipForward,
   AlertCircle,
-  CheckCircle,
-  Info,
-  AlertTriangle,
   LayoutGrid,
   BarChart3,
   Target,
   Radar,
-  Zap,
-  Trophy
+  Zap
 } from 'lucide-react';
 import './index.css';
 import { useGameState } from './hooks/useGameState';
@@ -35,9 +30,10 @@ import { SystemsGrid } from './components/SystemsGrid';
 import { MissionsPanel } from './components/MissionsPanel';
 import { AnalyticsPanel } from './components/AnalyticsPanel';
 import { ScoreBoard } from './components/ScoreBoard';
-import { ThreatRadar, RiskGauge, NetworkPulse, ThreatLevelIndicator, HexagonBackground, GlowingOrb } from './components/AdvancedVisuals';
+import { NotificationPanel } from './components/NotificationPanel';
 import { AIAssistant } from './components/AIAssistant';
 import { AIToolsPanel } from './components/AIToolsPanel';
+import { HexagonBackground, GlowingOrb, NetworkPulse, ThreatRadar } from './components/AdvancedVisuals';
 
 type TabType = 'systems' | 'analytics' | 'missions' | 'security' | 'tools';
 
@@ -270,49 +266,12 @@ function App() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <ThreatLevelIndicator level={threatLevel} />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-              <RiskGauge value={state.migrationProgress} label="Security" color="var(--accent-emerald)" />
-              <RiskGauge value={100 - budgetPercentage} label="Budget Used" color="var(--accent-amber)" />
-            </div>
-            <div className="glass-card" style={{ padding: '20px', flex: 1 }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Bell size={16} style={{ color: 'var(--accent-primary)' }} /> Activity Log
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '300px', overflowY: 'auto' }}>
-                {state.notifications.length === 0 ? (
-                  <p style={{ fontSize: '13px', color: 'var(--text-muted)', textAlign: 'center', padding: '40px 20px' }}>
-                    No recent activity.<br /><span style={{ fontSize: '12px' }}>Run a scan to begin.</span>
-                  </p>
-                ) : (
-                  state.notifications.map((notif, index) => (
-                    <div key={notif.id} className={`notification notification-${notif.type} animate-slide-in`} style={{ animationDelay: `${index * 0.05}s` }}>
-                      {notif.type === 'success' && <CheckCircle size={14} />}
-                      {notif.type === 'error' && <AlertCircle size={14} />}
-                      {notif.type === 'warning' && <AlertTriangle size={14} />}
-                      {notif.type === 'info' && <Info size={14} />}
-                      <span style={{ fontSize: '12px' }}>{notif.message}</span>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-            <div className="glass-card" style={{ padding: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>Session Stats</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                <StatCard
-                  icon={<Trophy size={14} />}
-                  label="Score"
-                  value={state.score.toLocaleString()}
-                  variant="default"
-                />
-                <StatCard icon={<Target size={14} />} label="Day" value={`${state.day}/15`} variant="default" />
-                <StatCard icon={<Server size={14} />} label="Migrated" value={`${state.totalSystemsMigrated}/8`} variant="default" />
-                <StatCard icon={<Activity size={14} />} label="Events" value={state.events.length.toString()} variant="default" />
-              </div>
-            </div>
-          </div>
+          <NotificationPanel
+            state={state}
+            threatLevel={threatLevel}
+            budgetPercentage={budgetPercentage}
+            migrationProgress={state.migrationProgress}
+          />
         </div>
       </div>
 

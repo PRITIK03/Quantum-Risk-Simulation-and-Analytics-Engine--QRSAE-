@@ -1,3 +1,4 @@
+export * from './NotificationPanel';
 export * from './Dashboard';
 export * from './ScoreBoard';
 export * from './SystemsGrid';
