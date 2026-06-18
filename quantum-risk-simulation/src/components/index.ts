@@ -1,3 +1,4 @@
+export * from './Sidebar';
 export * from './NotificationPanel';
 export * from './Dashboard';
 export * from './ScoreBoard';

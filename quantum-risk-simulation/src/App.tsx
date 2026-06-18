@@ -4,10 +4,7 @@ import {
   DollarSign,
   Activity,
   Server,
-  Scan,
-  Users,
   ChevronRight,
-  SkipForward,
   AlertCircle,
   LayoutGrid,
   BarChart3,
@@ -19,7 +16,6 @@ import './index.css';
 import { useGameState } from './hooks/useGameState';
 import {
   StatCard,
-  ProgressRing,
   QDayCountdown,
   DayCounter,
   SecurityDashboard,
@@ -29,11 +25,11 @@ import { VendorModal } from './components/VendorModal';
 import { SystemsGrid } from './components/SystemsGrid';
 import { MissionsPanel } from './components/MissionsPanel';
 import { AnalyticsPanel } from './components/AnalyticsPanel';
-import { ScoreBoard } from './components/ScoreBoard';
+import { Sidebar } from './components/Sidebar';
 import { NotificationPanel } from './components/NotificationPanel';
 import { AIAssistant } from './components/AIAssistant';
 import { AIToolsPanel } from './components/AIToolsPanel';
-import { HexagonBackground, GlowingOrb, NetworkPulse, ThreatRadar } from './components/AdvancedVisuals';
+import { HexagonBackground, GlowingOrb, NetworkPulse } from './components/AdvancedVisuals';
 
 type TabType = 'systems' | 'analytics' | 'missions' | 'security' | 'tools';
 
@@ -187,41 +183,13 @@ function App() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr 320px', gap: '24px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <ScoreBoard score={state.score} achievements={state.achievements} />
-            <ThreatRadar threatLevel={100 - state.migrationProgress} />
-
-            <div className="glass-card" style={{ padding: '20px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-primary)', animation: 'pulse 2s infinite' }} />
-                Quick Actions
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <button className="btn btn-primary" onClick={startScan} disabled={state.isScanning || hasScannedSystems} style={{ width: '100%', opacity: (state.isScanning || hasScannedSystems) ? 0.5 : 1 }}>
-                  <Scan size={18} />
-                  {state.isScanning ? 'Scanning...' : hasScannedSystems ? 'Scan Complete' : 'Run Network Scan'}
-                </button>
-                <button className="btn btn-ghost" onClick={() => setIsVendorModalOpen(true)} style={{ width: '100%' }}>
-                  <Users size={18} />
-                  {state.selectedVendor ? state.selectedVendor.name : 'Select Vendor'}
-                </button>
-                <button className="btn btn-ghost" onClick={advanceDay} disabled={state.day >= 15} style={{ width: '100%', opacity: state.day >= 15 ? 0.5 : 1 }}>
-                  <SkipForward size={18} />
-                  {state.day >= 15 ? 'Sprint Complete' : 'Advance Day'}
-                </button>
-              </div>
-            </div>
-
-            <div className="glass-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, marginBottom: '20px', color: 'var(--text-secondary)' }}>Overall Security</h3>
-              <ProgressRing progress={state.migrationProgress} size={140} label="Protected" />
-              <div style={{ marginTop: '16px', textAlign: 'center' }}>
-                <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-                  {state.migrationProgress === 0 ? 'Run a scan to begin' : state.migrationProgress < 50 ? 'Your infrastructure is at risk' : state.migrationProgress < 100 ? 'Making good progress!' : '🎉 All systems secured!'}
-                </p>
-              </div>
-            </div>
-          </div>
+          <Sidebar
+            state={state}
+            hasScannedSystems={hasScannedSystems}
+            startScan={startScan}
+            openVendorModal={() => setIsVendorModalOpen(true)}
+            advanceDay={advanceDay}
+          />
 
           <div className="glass-card animate-fade-in" style={{ padding: '28px', display: 'flex', flexDirection: 'column', animationDelay: '0.3s' }}>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '24px', padding: '6px', background: 'var(--bg-tertiary)', borderRadius: '16px', width: 'fit-content', border: '1px solid var(--border-subtle)' }}>

@@ -3,6 +3,7 @@ import { FileText, Map, Zap, Download, Copy, Loader, CheckCircle } from 'lucide-
 import { apiService } from '../services/apiService';
 import ReactMarkdown from 'react-markdown';
 import { TabButton } from './common/AppUI';
+import { predefinedScenarios } from '../models';
 
 interface AIToolsPanelProps {
     systemData: {
@@ -30,13 +31,6 @@ export function AIToolsPanel({ systemData }: AIToolsPanelProps) {
     const [customScenario, setCustomScenario] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [copied, setCopied] = useState(false);
-
-    const predefinedScenarios = [
-        { id: 'qday', label: '⚡ Q-Day Happens Today', scenario: 'Q-Day arrives and quantum computers can break current encryption instantly' },
-        { id: 'budget', label: '💰 Budget Runs Out', scenario: 'Budget is completely depleted before migration is complete' },
-        { id: 'breach', label: '🔓 Critical System Breach', scenario: 'A critical vulnerable system experiences a quantum-enabled security breach' },
-        { id: 'audit', label: '📋 Compliance Audit', scenario: 'Unexpected regulatory compliance audit happens today with current security posture' },
-    ];
 
     const generateReport = async () => {
         setIsLoading(true);
