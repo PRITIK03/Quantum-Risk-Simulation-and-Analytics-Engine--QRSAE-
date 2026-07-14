@@ -1,5 +1,5 @@
 import type { ChatMessage as ChatMessageType } from '../models';
-import * as ai from '../api/ai';
+import * as ai from '../features/ai/ai';
 
 export type ChatMessage = ChatMessageType;
 
