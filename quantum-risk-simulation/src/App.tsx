@@ -13,7 +13,7 @@ import {
   Zap
 } from 'lucide-react';
 import './index.css';
-import { useGameState } from './hooks/useGameState';
+import { useGameState } from './lib/hooks';
 import {
   StatCard,
   QDayCountdown,
