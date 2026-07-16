@@ -1,4 +1,4 @@
-import { postJSON } from './client'
+import { postJSON } from './client';
 import { logger } from '../utils/logger';
 import { handleApiError, sanitizePrompt } from '../utils/errorHandler';
 import type { AIResponse } from '../models';
