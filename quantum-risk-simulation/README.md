@@ -1,85 +1,139 @@
-# Quantum Risk Analyst
+# Quantum Risk Simulation and Analytics Engine
 
-A cybersecurity simulation game for banking infrastructure post-quantum cryptography migration.
+A React + TypeScript + Vite simulation dashboard for evaluating post-quantum cryptography migration risk in a banking infrastructure environment.
 
-## Setup
+This project models a cyber-risk decision game where the player:
 
-1. Copy `.env.example` to `.env.local` and configure:
-   - `VITE_LLM_API_URL` - Your backend proxy URL for AI features
-   - `VITE_IMAGE_API_URL` - Your image generation proxy URL
+- monitors critical banking systems
+- scans for vulnerabilities
+- chooses migration vendors and strategies
+- tracks budget, uptime, and day-by-day progress
+- manages a 15-day Q-Day countdown and execution strategy
+- uses AI-assisted analysis tools for operational reporting
+
+## Overview
+
+The application presents a "Quantum Risk Analyst" experience for financial institutions undergoing a migration away from legacy cryptography. It simulates operational pressure, financial trade-offs, system risk, and mission-driven remediation planning.
+
+## Features
+
+- Cyberpunk fintech dashboard layout
+- Real-time stats for budget, uptime, migration progress, and critical systems
+- Q-Day countdown and 15-day mission timeline
+- System scanning and vulnerability assessment workflow
+- Vendor selection modal for migration strategy trade-offs
+- Security, analytics, and missions panels
+- AI assistant / AI tools panel
+- Responsive UI built in React
+- Vite-based front-end tooling and TypeScript support
+
+## Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- ESLint
+- Lucide React
+- react-markdown
+
+## Project Structure
+
+```text
+quantum-risk-simulation/
+├── .env.example
+├── .gitignore
+├── README.md
+├── STRUCTURE.md
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+├── vite.config.ts
+├── public/
+│   └── vite.svg
+├── src/
+│   ├── App.css
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   ├── api/
+│   ├── components/
+│   ├── features/
+│   ├── hooks/
+│   ├── lib/
+│   ├── models/
+│   ├── services/
+│   ├── utils/
+│   └── assets/
+└── ...
+```
+
+## Local Setup
+
+1. Open the app directory:
+
+```bash
+cd quantum-risk-simulation
+```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. Run development server:
+3. Copy the example environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+4. Fill in the required values in `.env.local` if you are using the AI integration endpoints.
+
+Example:
+
+```dotenv
+VITE_PICO_API_KEY=
+VITE_LLM_API_URL=
+VITE_IMAGE_API_URL=
+VITE_ENABLE_CLIENT_LOGS=false
+```
+
+## Run the app
+
 ```bash
 npm run dev
 ```
 
-## Security Note
+The app will be served by Vite, typically at:
 
-Do NOT place secret API keys in client-side environment variables. Use a backend proxy endpoint.
+- http://localhost:5173
 
 ## Build
+
 ```bash
 npm run build
 ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Lint
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Security Note
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Do not commit real API keys or secrets into client-side environment files. Prefer a backend or proxy endpoint for AI-related requests and keep secrets server-side.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Notes
+
+- `STRUCTURE.md` contains the project design and timeline context for the simulation.
+- The simulation is intended as a prototype and strategy dashboard rather than a production financial-risk engine.
+- This project is designed for demonstrating a banking Q-Day migration scenario and operational decision-making under uncertainty.
+
+## License
+
+This project does not currently declare a license in the repository metadata. If you plan to share or distribute it publicly, you may want to add an explicit open-source license.
